@@ -16,6 +16,7 @@ LABEL architecture="$ARCH" \
       io.openshift.tags="gluster,glusterfs,glusterfs-centos"
 
 RUN yum --setopt=tsflags=nodocs -y update && yum install -y centos-release-gluster && yum clean all && \
+sed -i 's;gluster-7;gluster-8;g' /etc/yum.repos.d/CentOS-Gluster-7.repo && \
 (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done) && \
 rm -f /lib/systemd/system/multi-user.target.wants/* &&\
 rm -f /etc/systemd/system/*.wants/* &&\
